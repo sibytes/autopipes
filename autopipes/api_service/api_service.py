@@ -38,14 +38,14 @@ class ApiService:
             raise e
 
         try:
-            subscription_id = _config["subscription_id"]
+            self.subscription_id = _config["subscription_id"]
         except KeyError:
             e = AutopipesConfigurationInvalid("subscription_id")
             _logger.error(e.message)
             raise e
         
         try:
-            resource_group = _config["resource_group"]
+            self.resource_group = _config["resource_group"]
         except KeyError:
             e = AutopipesConfigurationInvalid("resource_group")
             _logger.error(e.message)
@@ -54,7 +54,7 @@ class ApiService:
         _config["resource"] = self.resource
         
         
-        self.host = f"{self.resource}/subscriptions/{subscription_id}/resourceGroups/{resource_group}"
+        self.host = f"{self.resource}/subscriptions/{self.subscription_id}/resourceGroups/{self.resource_group}"
 
 
         try:

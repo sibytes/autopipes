@@ -28,6 +28,8 @@ def pipeline_create_run(
     endpoint  = f"{_endpoint}/{datafactory}/pipelines/{pipeline}/createRun?api-version={_ADF_API_VERSION}"
     try:
         response = _api_service.api_post(endpoint)
+        run_id = response["runId"]
+        response["url"] = f"https://adf.azure.com/en/monitoring/pipelineruns/{run_id}?factory=%2Fsubscriptions%2F{_api_service.subscription_id}%2FresourceGroups%2F{_api_service.resource_group}%2Fproviders%2FMicrosoft.DataFactory%2Ffactories%2F{datafactory}"
     except Exception:
         raise DataFactoryPipelineException(pipeline)
 
